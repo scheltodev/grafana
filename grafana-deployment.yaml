@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:latest-arm64 # ARM-kompatibles Grafana-Image
+          image: grafana/grafana:8.4.3-armv7 # ARM-kompatibles Grafana-Image
           ports:
             - containerPort: 3000
           env:

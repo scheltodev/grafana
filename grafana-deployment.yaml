@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: dashboards
           configMap:
-            name: grafana-dashboards # Sicherstellen, dass der Name übereinstimmt
+            name: grafana-dashboards
 
 ---
 apiVersion: v1
@@ -37,7 +37,8 @@ metadata:
   name: grafana
 spec:
   ports:
-    - port: 3000
+    - name: http # Portname hinzugefügt
+      port: 3000
       targetPort: 3000
   selector:
     app: grafana

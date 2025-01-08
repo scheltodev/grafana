@@ -1,0 +1,26 @@
+# argocd-applications/loki-grafana.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki-grafana
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/scheltodev/grafana.git" # Ersetze dies mit der URL deines Git-Repositories
+    targetRevision: main # Ersetze dies ggf. mit dem Branch, den du verwenden möchtest
+    path: loki # Der Pfad zu den Helm-Werten und Application YAML
+    helm:
+      releaseName: loki-grafana
+      chart: grafana/loki-stack
+      version: latest # Optional: spezifische Chart-Version angeben
+      valueFiles:
+        - loki-values.yaml
+        - promtail-values.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
